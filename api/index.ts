@@ -1,5 +1,9 @@
-export default (request: Request) => {
-  console.log(request);
-  
-	return new Response(`Hello, from Deno v${Deno.version.deno}!`);
-};
+import { server } from '../src/server.ts';
+
+server.use(ctx => {
+  ctx.response.body = {
+    message: 'hello world',
+  };
+});
+
+export default server.handle;
