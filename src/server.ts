@@ -1,11 +1,16 @@
-const { Application } = await import("https://deno.land/x/oak@v17.0.0/mod.ts");
+import { Application } from "jsr:@oak/oak/application";
+import { Router } from "jsr:@oak/oak/router";
 
 const server = new Application();
+const router = new Router();
 
-server.use(ctx => {
+router.get("/", (ctx) => {
   ctx.response.body = {
     message: 'hello world',
   };
 });
+
+server.use(router.routes());
+server.use(router.allowedMethods());
 
 export { server };
